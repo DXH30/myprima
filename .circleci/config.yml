@@ -33,44 +33,44 @@ jobs:
             - v1-dependencies-
 
       - run: 
-        name: "Install Dependencies"
-        command: composer install -n --prefer-dist
-      
-      - run:
-        name: "Create Environment file and generate app key"
-        command: |
-          mv .env.testing .env
-          php artisan key:generate
-      
-      - run:
-        name: "Create Database and run migration"
-        command: |
-          touch database/database.sqlite
-          php artisan migrate --env=testing
+          name: "Install Dependencies"
+          command: composer install -n --prefer-dist
 
       - run:
-        name: "Run Tests"
-        command: ./vendor/bin/phpunit
+          name: "Create Environment file and generate app key"
+          command: |
+            mv .env.testing .env
+            php artisan key:generate
+
+      - run:
+          name: "Create Database and run migration"
+          command: |
+            touch database/database.sqlite
+            php artisan migrate --env=testing
+
+      - run:
+          name: "Run Tests"
+          command: ./vendor/bin/phpunit
 
       - save_cache:
-          key: v1-dependencies-{{ checksum "composer.json" }}
-          paths:
-            - ./vendor
+        key: v1-dependencies-{{ checksum "composer.json" }}
+        paths:
+          - ./vendor
       - restore_cache:
-          keys:
-            - node-v1-{{ checksum "package.json" }}
-            - node-v1-
+        keys:
+          - node-v1-{{ checksum "package.json" }}
+          - node-v1-
       - run: yarn install
       - save_cache:
-          key: node-v1-{{ checksum "package.json" }}
-          paths:
-            - node_modules
+        key: node-v1-{{ checksum "package.json" }}
+        paths:
+          - node_modules
 
-      # prepare the database
-      - run: touch storage/testing.sqlite
-      - run: php artisan migrate --env=testing --database=sqlite_testing --force
+            # prepare the database
+          - run: touch storage/testing.sqlite
+          - run: php artisan migrate --env=testing --database=sqlite_testing --force
 
-      # run tests with phpunit or codecept
-      #- run: ./vendor/bin/phpunit
-      - run: ./vendor/bin/codecept build
-      - run: ./vendor/bin/codecept run
+            # run tests with phpunit or codecept
+            #- run: ./vendor/bin/phpunit
+          - run: ./vendor/bin/codecept build
+          - run: ./vendor/bin/codecept run
