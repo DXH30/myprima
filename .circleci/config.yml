@@ -53,18 +53,18 @@ jobs:
           command: ./vendor/bin/phpunit
 
       - save_cache:
-        key: v1-dependencies-{{ checksum "composer.json" }}
-        paths:
-          - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}
+          paths:
+            - ./vendor
       - restore_cache:
-        keys:
-          - node-v1-{{ checksum "package.json" }}
-          - node-v1-
+          keys:
+            - node-v1-{{ checksum "package.json" }}
+            - node-v1-
       - run: yarn install
       - save_cache:
-        key: node-v1-{{ checksum "package.json" }}
-        paths:
-          - node_modules
+          key: node-v1-{{ checksum "package.json" }}
+          paths:
+            - node_modules
 
             # prepare the database
           - run: touch storage/testing.sqlite
