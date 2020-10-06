@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center mb-5">
-                            <a href="index.html" class="logo"><img src="{{URL::asset('/images/logo-light.png')}}" height="24" alt="logo"></a>
+                            <a href="{{url('/')}}" class="logo"><img src="{{URL::asset('/images/logo-light.png')}}" height="24" alt="logo"></a>
                             <h5 class="font-size-16 text-white-50 mb-4">{{$title}}</h5>
                         </div>
                     </div>
