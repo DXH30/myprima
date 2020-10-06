@@ -16,6 +16,28 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
+//        $response->assertStatus(200);
+        $response->assertStatus(302);
+    }
+
+    public function testRegisterPage()
+    {
+        $response = $this->get('/register');
+
+        $response->assertStatus(200);
+    }
+
+    public function testLoginPage()
+    {
+        $response = $this->get('/login');
+
+        $response->assertStatus(200);
+    }
+
+    public function testLandingPage()
+    {
+        $response = $this->get('/landing');
+
         $response->assertStatus(200);
     }
 }
